@@ -41,3 +41,12 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Interaction
+    uniqueID: 3341919567
+    locked: 0
+  - name: Outline
+    uniqueID: 187927703
+    locked: 0
+  - name: Draggable
+    uniqueID: 2566262795
+    locked: 0
