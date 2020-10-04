@@ -1,10 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class GameplayController : MonoBehaviour
 {
-    [SerializeField] Clickable[] clickableObjects = null;
+    public static List<Clickable> clickableObjects;
     [SerializeField] Draggable stepSemillaCompleter = null;
     List <StepObject[]> stepsObjects = new List<StepObject[]>();
     [SerializeField] StepObject[] step1Objs = null; 
@@ -37,8 +38,8 @@ public class GameplayController : MonoBehaviour
         SunMoonController smController = FindObjectOfType<SunMoonController>();
         smController.OnStateChange = OnDayStart;
         stepSemillaCompleter.Reaction = OnStepDone;
-        CloudManager.OnCloudCompleted = OnStepDone;
-        clickableObjects = FindObjectsOfType<Clickable>();
+        CloudController.OnStepsCompleted = OnStepDone;
+        clickableObjects = FindObjectsOfType<Clickable>().ToList();
     }
 
     private void Start()
@@ -68,14 +69,14 @@ public class GameplayController : MonoBehaviour
 
     public void OnDayStart(bool day)
     {
-        for (int i = 0; i < clickableObjects.Length; i++)
+        for (int i = 0; i < clickableObjects.Count; i++)
         {
             if (clickableObjects[i].gameObject.activeInHierarchy)
             {
                 if ((clickableObjects[i].interactableDuring == Clickable.InteractableDuring.day) == day)
-                    clickableObjects[i].OnStartCorrectState();
+                    clickableObjects[i].StartCorrectState();
                 else
-                    clickableObjects[i].OnEndCorrectState();
+                    clickableObjects[i].EndCorrectState();
             }
         }
         stateChanged = true;

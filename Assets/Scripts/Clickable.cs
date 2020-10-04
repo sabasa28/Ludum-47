@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class Clickable : MonoBehaviour
 {
@@ -12,9 +13,12 @@ public class Clickable : MonoBehaviour
     public bool startActive = true;
     protected bool interactable = false;
 
-    [SerializeField] GameObject outLine = null;
+    public GameObject outLine;
     SpriteRenderer sr = null;
     Color grayTone = new Color (0.4f,0.4f,0.4f,1.0f);
+
+    public Action OnCorrectStateStart;
+    public Action OnCorrectStateEnd;
 
     protected void Awake()
     {
@@ -23,7 +27,7 @@ public class Clickable : MonoBehaviour
 
     void OnEnable()
     {
-        OnStartCorrectState();
+        StartCorrectState();
     }
 
     private void Start()
@@ -42,16 +46,20 @@ public class Clickable : MonoBehaviour
         if (interactable) outLine.SetActive(false);
     }
 
-    public void OnStartCorrectState()
+    public void StartCorrectState()
     {
         sr.color = Color.white;
         interactable = true;
+
+        OnCorrectStateStart?.Invoke();
     }
 
-    public void OnEndCorrectState()
+    public void EndCorrectState()
     {
         outLine.SetActive(false);
         sr.color = grayTone; //no funcionaria con los que tengan cambiados los tonos desde antes en vez de estar en blanco
         interactable = false;
+
+        OnCorrectStateEnd?.Invoke();
     }
 }
