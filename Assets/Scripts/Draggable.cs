@@ -1,18 +1,20 @@
 ﻿using UnityEngine;
+using System;
 
 public class Draggable : Clickable
 {
     bool dragged = false;
     bool colliding = false;
+    
 
     Vector3 dragStartPosition;
     Vector3 worldMousePosition;
     Vector3 mouseOffset;
-
+    public Action Reaction = null;
 
     public Collider2D interactionCollider;
 
-    void Awake()
+    new void Awake()
     {
         base.Awake();
     }
@@ -29,7 +31,7 @@ public class Draggable : Clickable
             colliding = false;
     }
 
-    void OnMouseOver()
+    new void OnMouseOver()
     {
         base.OnMouseOver();
 
@@ -71,7 +73,7 @@ public class Draggable : Clickable
         transform.position = worldMousePosition + mouseOffset;
     }
 
-    void OnMouseExit()
+    new void OnMouseExit()
     {
         if (!dragged) base.OnMouseExit();
     }
@@ -79,6 +81,6 @@ public class Draggable : Clickable
     void Update()
     {
         if (Input.GetButtonUp("Left Click") && colliding)
-            Debug.Log("interaction");
+            Reaction?.Invoke();
     }
 }
