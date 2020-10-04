@@ -21,6 +21,11 @@ public class Clickable : MonoBehaviour
         sr = GetComponent<SpriteRenderer>();
     }
 
+    void OnEnable()
+    {
+        OnStartCorrectState();
+    }
+
     private void Start()
     {
         if (!startActive) gameObject.SetActive(false);

@@ -37,6 +37,7 @@ public class GameplayController : MonoBehaviour
         SunMoonController smController = FindObjectOfType<SunMoonController>();
         smController.OnStateChange = OnDayStart;
         stepSemillaCompleter.Reaction = OnStepDone;
+        CloudManager.OnCloudCompleted = OnStepDone;
         clickableObjects = FindObjectsOfType<Clickable>();
     }
 
@@ -56,6 +57,8 @@ public class GameplayController : MonoBehaviour
         if (currentStep != CurrentStep.stepsCompletados)
         {
             currentStep++;
+
+            //script de planta
             DeactivateLastStateObjs();
         }
         yield return new WaitUntil(()=>stateChanged);

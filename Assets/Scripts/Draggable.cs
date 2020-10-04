@@ -1,5 +1,5 @@
-﻿using UnityEngine;
-using System;
+﻿using System;
+using UnityEngine;
 
 public class Draggable : Clickable
 {
@@ -19,13 +19,13 @@ public class Draggable : Clickable
         base.Awake();
     }
 
-    void OnTriggerEnter2D(Collider2D collision)
+    protected void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision == interactionCollider)
             colliding = true;
     }
 
-    void OnTriggerExit2D(Collider2D collision)
+    protected void OnTriggerExit2D(Collider2D collision)
     {
         if (collision == interactionCollider)
             colliding = false;
@@ -56,7 +56,7 @@ public class Draggable : Clickable
             dragged = false;
     }
 
-    void OnMouseDrag()
+    protected void OnMouseDrag()
     {
         if (!interactable)
         {
@@ -78,7 +78,7 @@ public class Draggable : Clickable
         if (!dragged) base.OnMouseExit();
     }
 
-    void Update()
+    protected void Update()
     {
         if (Input.GetButtonUp("Left Click") && colliding)
             Reaction?.Invoke();

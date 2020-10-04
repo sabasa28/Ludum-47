@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class StepObject : MonoBehaviour
@@ -13,7 +12,8 @@ public class StepObject : MonoBehaviour
     }
     public void Deactivate()
     {
-        StartCoroutine(FadeAndDeactivate());
+        if (gameObject.activeInHierarchy)
+            StartCoroutine(FadeAndDeactivate());
     }
     public void Appear()
     {
