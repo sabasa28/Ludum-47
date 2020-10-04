@@ -3,12 +3,14 @@ using UnityEngine;
 
 public class StepObject : MonoBehaviour
 {
+    bool hasSR;
+
     SpriteRenderer sr;
     float timeToFadeIn = 1.0f;
     float timeToFadeOut = 1.0f;
     void Awake()
     {
-        sr = GetComponent<SpriteRenderer>();    
+        hasSR = TryGetComponent(out sr);
     }
     public void Deactivate()
     {
@@ -17,23 +19,29 @@ public class StepObject : MonoBehaviour
     }
     public void Appear()
     {
-        StartCoroutine(ActivateAndFadeIn());
+        StartCoroutine(FadeIn());
     }
     IEnumerator FadeAndDeactivate()
     {
-        float t = 0;
-        Color visibleCol = new Color(sr.color.r, sr.color.g, sr.color.b, 1);
-        Color notVisibleCol = new Color(sr.color.r, sr.color.g, sr.color.b, 0);
-        while (t < 1)
+        if (hasSR)
         {
-            t += Time.deltaTime / timeToFadeOut;
-            sr.color = Color.Lerp(visibleCol,notVisibleCol,t);
-            yield return null;
+            float t = 0;
+            Color visibleCol = new Color(sr.color.r, sr.color.g, sr.color.b, 1);
+            Color notVisibleCol = new Color(sr.color.r, sr.color.g, sr.color.b, 0);
+            while (t < 1)
+            {
+                t += Time.deltaTime / timeToFadeOut;
+                sr.color = Color.Lerp(visibleCol, notVisibleCol, t);
+                yield return null;
+            }
         }
+
         gameObject.SetActive(false);
     }
-    IEnumerator ActivateAndFadeIn()
+    IEnumerator FadeIn()
     {
+        if (!hasSR) yield break;
+
         float t = 0;
         Color visibleCol = new Color(sr.color.r, sr.color.g, sr.color.b, 1);
         Color notVisibleCol = new Color(sr.color.r, sr.color.g, sr.color.b, 0);

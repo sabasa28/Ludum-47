@@ -8,17 +8,15 @@ public class GameplayController : MonoBehaviour
     public static List<Clickable> clickableObjects;
     [SerializeField] Draggable stepSemillaCompleter = null;
     List <StepObject[]> stepsObjects = new List<StepObject[]>();
-    [SerializeField] StepObject[] step1Objs = null; 
-    [SerializeField] StepObject[] step2Objs = null; 
-    [SerializeField] StepObject[] step3Objs = null; 
-    [SerializeField] StepObject[] step4Objs = null; 
-    [SerializeField] StepObject[] step5Objs = null; 
-    [SerializeField] StepObject[] step6Objs = null; 
+    [SerializeField] StepObject[] step1Objs = null;
+    [SerializeField] StepObject[] step2and3Objs = null;
+    [SerializeField] StepObject[] step4Objs = null;
+    [SerializeField] StepObject[] step5Objs = null;
+    [SerializeField] StepObject[] step6Objs = null;
     public enum CurrentStep
     { 
         semilla,
-        lluvia,
-        sol,
+        lluviaYSol,
         temperatura,
         bichitos,
         viento,
@@ -30,8 +28,7 @@ public class GameplayController : MonoBehaviour
     private void Awake()
     {
         stepsObjects.Add(step1Objs);
-        stepsObjects.Add(step2Objs);
-        stepsObjects.Add(step3Objs);
+        stepsObjects.Add(step2and3Objs);
         stepsObjects.Add(step4Objs);
         stepsObjects.Add(step5Objs);
         stepsObjects.Add(step6Objs);

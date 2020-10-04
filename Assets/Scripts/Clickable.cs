@@ -11,14 +11,11 @@ public class Clickable : MonoBehaviour
     public InteractableDuring interactableDuring;
 
     public bool startActive = true;
-    protected bool interactable = false;
+    public bool interactable = false;
 
     public GameObject outLine;
     SpriteRenderer sr = null;
     Color grayTone = new Color (0.4f,0.4f,0.4f,1.0f);
-
-    public Action OnCorrectStateStart;
-    public Action OnCorrectStateEnd;
 
     protected void Awake()
     {
@@ -50,8 +47,6 @@ public class Clickable : MonoBehaviour
     {
         sr.color = Color.white;
         interactable = true;
-
-        OnCorrectStateStart?.Invoke();
     }
 
     public void EndCorrectState()
@@ -59,7 +54,5 @@ public class Clickable : MonoBehaviour
         outLine.SetActive(false);
         sr.color = grayTone; //no funcionaria con los que tengan cambiados los tonos desde antes en vez de estar en blanco
         interactable = false;
-
-        OnCorrectStateEnd?.Invoke();
     }
 }

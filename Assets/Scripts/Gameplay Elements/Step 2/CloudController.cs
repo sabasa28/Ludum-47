@@ -5,7 +5,6 @@ using UnityEngine;
 public class CloudController : MonoBehaviour
 {
     bool onStep3 = false;
-    bool onCorrectState = false;
 
     int timesGrown = 0;
     int timesShrunk = 0;
@@ -16,8 +15,10 @@ public class CloudController : MonoBehaviour
 
     [SerializeField] RainAnimation rain = null;
     [SerializeField] GameObject outline = null;
+    [SerializeField] Transform shadow = null;
 
     public Draggable[] clouds;
+    Clickable clickable = null;
 
     static public Action OnStepsCompleted;
 
@@ -31,16 +32,20 @@ public class CloudController : MonoBehaviour
 
     private void OnMouseOver()
     {
-        if (!onStep3 && !onCorrectState) return;
-
-        if (Input.GetButtonDown("Left Click"))
+        if (clickable)
         {
-            if (timesShrunk < shrinkTarget)
+            if (!onStep3 || !clickable.interactable) return;
+
+            if (Input.GetButtonDown("Left Click"))
             {
-                transform.localScale *= shrinkFactor;
-                timesShrunk++;
+                if (timesShrunk < shrinkTarget)
+                {
+                    transform.localScale *= shrinkFactor;
+                    ScaleShadow(shrinkFactor);
+                    timesShrunk++;
+                }
+                else OnStepsCompleted?.Invoke();
             }
-            else OnStepsCompleted?.Invoke();
         }
     }
 
@@ -48,11 +53,26 @@ public class CloudController : MonoBehaviour
     {
         timesGrown++;
         transform.localScale *= growthFactor;
+        ScaleShadow(growthFactor);
 
         if (timesGrown >= clouds.Length)
         {
+            GetComponent<SpriteRenderer>().sortingLayerName = "Draggable";
+            clickable = gameObject.AddComponent<Clickable>();
+            clickable.interactableDuring = Clickable.InteractableDuring.day;
+            clickable.outLine = outline;
+            GameplayController.clickableObjects.Add(clickable);
+            clickable.EndCorrectState();
+
             StartCoroutine(RainAndCompleteStep2());
         }
+    }
+
+    void ScaleShadow(float scaleFactor)
+    {
+        Vector3 scale = new Vector3(shadow.localScale.x, shadow.localScale.y * scaleFactor, 1f);
+        shadow.localScale = scale;
+        // lerpear escala después
     }
 
     IEnumerator RainAndCompleteStep2()
@@ -61,14 +81,8 @@ public class CloudController : MonoBehaviour
 
         yield return new WaitUntil(() => rain.animationCompleted);
 
-        GetComponent<SpriteRenderer>().sortingLayerName = "Draggable";
-        Clickable clickable = gameObject.AddComponent<Clickable>();
-        clickable.interactableDuring = Clickable.InteractableDuring.night;
-        clickable.outLine = outline;
-        clickable.OnCorrectStateStart += () => onCorrectState = true;
-        clickable.OnCorrectStateEnd += () => onCorrectState = false;
-        GameplayController.clickableObjects.Add(clickable);
-
+        shadow.gameObject.SetActive(true);
+        shadow.GetComponent<StepObject>().Appear();
         onStep3 = true;
     }
 }
