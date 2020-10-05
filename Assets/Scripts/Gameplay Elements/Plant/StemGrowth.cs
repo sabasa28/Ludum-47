@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class StemGrowth : MonoBehaviour
 {
-    public float delay = 10;
+    public float delay = 1.5f;
 
     private float totalTime = 1;
     private float timeRemaining = 0;
@@ -12,7 +12,7 @@ public class StemGrowth : MonoBehaviour
 
     void Start()
     {
-        stemCol = this.gameObject.GetComponent<SpriteRenderer>().color;
+        stemCol = GetComponent<SpriteRenderer>().color;
     }
 
     void Update()
@@ -22,11 +22,11 @@ public class StemGrowth : MonoBehaviour
             timeRemaining += Time.deltaTime * delay;
         }
 
-        this.gameObject.GetComponent<Renderer>().material.color = new Color(stemCol.r, stemCol.g, stemCol.b, timeRemaining);
+        GetComponent<Renderer>().material.color = new Color(stemCol.r, stemCol.g, stemCol.b, timeRemaining); //emprolijar esto 
     }
 
     private void OnEnable()
     {
-        this.gameObject.GetComponent<Renderer>().material.color = new Color(stemCol.r, stemCol.g, stemCol.b, 0);
+        GetComponent<Renderer>().material.color = new Color(stemCol.r, stemCol.g, stemCol.b, 0);
     }
 }

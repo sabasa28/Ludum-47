@@ -12,6 +12,9 @@ public class CloudController : MonoBehaviour
 
     [SerializeField] float growthFactor = 1.2f;
     [SerializeField] float shrinkFactor = 0.75f;
+    [SerializeField] float shadowGrowthFactor = 1.02f;
+    [SerializeField] float shadowShrinkFactor = 0.975f;
+
 
     [SerializeField] RainAnimation rain = null;
     [SerializeField] GameObject outline = null;
@@ -41,7 +44,7 @@ public class CloudController : MonoBehaviour
                 if (timesShrunk < shrinkTarget)
                 {
                     transform.localScale *= shrinkFactor;
-                    ScaleShadow(shrinkFactor);
+                    ScaleShadow(shadowShrinkFactor);
                     timesShrunk++;
                 }
                 else OnStepsCompleted?.Invoke();
@@ -53,7 +56,7 @@ public class CloudController : MonoBehaviour
     {
         timesGrown++;
         transform.localScale *= growthFactor;
-        ScaleShadow(growthFactor);
+        ScaleShadow(shadowGrowthFactor);
 
         if (timesGrown >= clouds.Length)
         {
@@ -70,8 +73,7 @@ public class CloudController : MonoBehaviour
 
     void ScaleShadow(float scaleFactor)
     {
-        Vector3 scale = new Vector3(shadow.localScale.x, shadow.localScale.y * scaleFactor, 1f);
-        shadow.localScale = scale;
+        shadow.GetComponent<SpriteRenderer>().size = new Vector2 (shadow.GetComponent<SpriteRenderer>().size.x, shadow.GetComponent<SpriteRenderer>().size.y * scaleFactor);
         // lerpear escala después
     }
 
@@ -82,7 +84,6 @@ public class CloudController : MonoBehaviour
         yield return new WaitUntil(() => rain.animationCompleted);
 
         shadow.gameObject.SetActive(true);
-        shadow.GetComponent<StepObject>().Appear();
         onStep3 = true;
     }
 }
