@@ -51,7 +51,7 @@ public class GameplayController : MonoBehaviour
         StartCoroutine(ChangeStep());   
     }
 
-    IEnumerator ChangeStep() //la corrutina se esta llamando mas veces de las que deberia al terminar el paso 3, aunque pasa solo a veces y la cantidad de veces que se llama varia
+    IEnumerator ChangeStep()
     {
         if (currentStep != CurrentStep.stepsCompletados)
         {
@@ -60,9 +60,12 @@ public class GameplayController : MonoBehaviour
             //script de planta
             DeactivateLastStateObjs();
         }
+
         yield return new WaitUntil(()=>stateChanged);
+
         if (currentStep != CurrentStep.stepsCompletados)
             ActivateCurrentStateObjs();
+        SoundManager.Get().AddNewInstrument();
     }
 
     public void OnDayStart(bool day)

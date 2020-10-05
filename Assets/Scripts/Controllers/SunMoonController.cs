@@ -1,12 +1,14 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using System;
 
 public class SunMoonController : MonoBehaviour
 {
     [SerializeField] SpriteRenderer moonLight = null;
     [SerializeField] SpriteRenderer sunLight = null;
+    [SerializeField] Image nightBG = null;
+    [SerializeField] Image dayBG = null;
     [SerializeField] Transform moon = null;
     [SerializeField] Transform sun = null;
     [SerializeField] float rotSpeed = 0;
@@ -50,8 +52,12 @@ public class SunMoonController : MonoBehaviour
                 day = true;
                 OnStateChange(day);
             }
+
             sunLight.color = Color.Lerp(new Color(sunLightCol.r, sunLightCol.g, sunLightCol.b, 0), new Color(sunLightCol.r, sunLightCol.g, sunLightCol.b, 1), tSun);
+            dayBG.color = Color.Lerp(new Color(1f, 1f, 1f, 0), new Color(1f, 1f, 1f, 1), tSun);
+
             moonLight.color = Color.Lerp(new Color(moonLightCol.r, moonLightCol.g, moonLightCol.b, 0), new Color(moonLightCol.r, moonLightCol.g, moonLightCol.b, 1), tMoon);
+            nightBG.color = Color.Lerp(new Color(1f, 1f, 1f, 0), new Color(1f, 1f, 1f, 1), tMoon);
 
             yield return null;
         }
