@@ -26,12 +26,8 @@ public class FrozenStem : MonoBehaviour
         if (Input.GetButtonDown("Left Click"))
         {
             GameplayController.clickableObjects.Remove(clickable);
-            Destroy(gameObject);
+            gameObject.SetActive(false);
+            OnIceBroken?.Invoke();
         }
-    }
-
-    void OnDestroy()
-    {
-        OnIceBroken?.Invoke();
     }
 }

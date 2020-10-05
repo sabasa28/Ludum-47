@@ -13,13 +13,13 @@ public class EnableObjects : MonoBehaviour
 
     private void OnEnable()
     {
-        if (enableObject == 0)
+        if ((int)enableObject == 0)
             stem.gameObject.SetActive(true);
     }
 
     private void OnDisable()
     {
-        if (enableObject != 0)
+        if ((int)enableObject != 0)
         {
             stem.gameObject.SetActive(true);
         }

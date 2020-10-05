@@ -9,7 +9,6 @@ public class CloudController : MonoBehaviour
     int timesGrown = 0;
     int timesShrunk = 0;
     [SerializeField] int shrinkTarget = 5;
-
     [SerializeField] float growthFactor = 1.2f;
     [SerializeField] float shrinkFactor = 0.75f;
     [SerializeField] float shadowGrowthFactor = 1.02f;
@@ -43,6 +42,7 @@ public class CloudController : MonoBehaviour
             {
                 if (timesShrunk < shrinkTarget)
                 {
+                    SoundManager.Get().PlaySound(SoundManager.Sounds.Clouds);
                     transform.localScale *= shrinkFactor;
                     ScaleShadow(shadowShrinkFactor);
                     timesShrunk++;
@@ -58,6 +58,7 @@ public class CloudController : MonoBehaviour
 
     void GrowCloud()
     {
+        SoundManager.Get().PlaySound(SoundManager.Sounds.Clouds);
         timesGrown++;
         transform.localScale *= growthFactor;
         ScaleShadow(shadowGrowthFactor);
@@ -87,6 +88,7 @@ public class CloudController : MonoBehaviour
 
         yield return new WaitUntil(() => rain.animationCompleted);
 
+        SoundManager.Get().AddNewInstrument();
         shadow.gameObject.SetActive(true);
         onStep3 = true;
     }

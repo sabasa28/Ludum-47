@@ -33,13 +33,14 @@ public class Clickable : MonoBehaviour
 
     protected void OnMouseOver()
     {
-        if (interactable) outLine.SetActive(true);
-        else outLine.SetActive(false);
+        if (interactable) 
+            if (outLine)outLine.SetActive(true);
+        else if (outLine) outLine.SetActive(false);
     }
 
     protected void OnMouseExit()
     {
-        if (interactable) outLine.SetActive(false);
+        if (interactable && outLine) outLine.SetActive(false);
     }
 
     public void StartCorrectState()
@@ -54,7 +55,7 @@ public class Clickable : MonoBehaviour
     {
         if (!sr) sr = GetComponent<SpriteRenderer>();
 
-        outLine.SetActive(false);
+        if (outLine) outLine.SetActive(false);
         sr.color = grayTone; //no funcionaria con los que tengan cambiados los tonos desde antes en vez de estar en blanco
         interactable = false;
     }

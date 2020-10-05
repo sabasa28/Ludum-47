@@ -18,6 +18,7 @@ public class Fly : MonoBehaviour
     public Side side;
     void Start()
     {
+        FlyManager.Get().fliesLeft++;
         clickable = GetComponent<Clickable>();
         switch (side)
         {
@@ -36,7 +37,7 @@ public class Fly : MonoBehaviour
         if (!flying && clickable.interactable)
         {
             shooAmount++;
-            if (shooAmount < shooesToScareOff)
+            if (shooAmount <= shooesToScareOff)
             {
                 flying = true;
                 animator.SetTrigger("Shooed"+sideToAnim);
@@ -55,6 +56,7 @@ public class Fly : MonoBehaviour
 
     public void LeaveScreen()
     {
+        FlyManager.Get().OnFlyDead();
         gameObject.SetActive(false);
     }
 }

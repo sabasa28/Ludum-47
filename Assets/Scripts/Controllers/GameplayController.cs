@@ -40,11 +40,6 @@ public class GameplayController : MonoBehaviour
         clickableObjects = FindObjectsOfType<Clickable>().ToList();
     }
 
-    private void Start()
-    {
-        currentStep = CurrentStep.semilla;
-    }
-
     void OnStepDone()
     {
         stateChanged = false;
