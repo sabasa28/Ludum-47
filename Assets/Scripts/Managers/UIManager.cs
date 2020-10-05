@@ -8,9 +8,24 @@ public class UIManager : MonoBehaviour
 
     public Image cover;
 
+    void OnEnable()
+    {
+        SunMoonController.OnFinalAnimationFinished += StartFadeOut;
+    }
+
     void Start()
     {
         StartCoroutine(FadeIn());
+    }
+
+    void OnDisable()
+    {
+        SunMoonController.OnFinalAnimationFinished -= StartFadeOut;
+    }
+
+    void StartFadeOut()
+    {
+        StartCoroutine(FadeOut());
     }
 
     IEnumerator FadeIn()

@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - Cloud
+  - Plant
   layers:
   - Default
   - TransparentFX
@@ -71,6 +72,15 @@ TagManager:
     locked: 0
   - name: Draggable
     uniqueID: 2566262795
+    locked: 0
+  - name: Below Planet
+    uniqueID: 3550592483
+    locked: 0
+  - name: Above Planet
+    uniqueID: 2270104471
+    locked: 0
+  - name: Mandala Planet
+    uniqueID: 910127181
     locked: 0
   - name: Cover
     uniqueID: 933117823

@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class StemGrowth : MonoBehaviour
 {
@@ -22,11 +20,12 @@ public class StemGrowth : MonoBehaviour
             timeRemaining += Time.deltaTime * delay;
         }
 
-        GetComponent<Renderer>().material.color = new Color(stemCol.r, stemCol.g, stemCol.b, timeRemaining); //emprolijar esto 
+        GetComponent<Renderer>().material.color = new Color(stemCol.r, stemCol.g, stemCol.b, timeRemaining);
     }
 
     private void OnEnable()
     {
         GetComponent<Renderer>().material.color = new Color(stemCol.r, stemCol.g, stemCol.b, 0);
+        SoundManager.Get().PlaySound(SoundManager.Sounds.Grass);
     }
 }

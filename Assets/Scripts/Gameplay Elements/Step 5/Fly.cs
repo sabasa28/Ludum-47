@@ -45,6 +45,7 @@ public class Fly : MonoBehaviour
             else
             {
                 animator.SetTrigger("ScaredOff"+sideToAnim);
+                SoundManager.Get().PlaySound(SoundManager.Sounds.FliesDie);
             }
         }
     }

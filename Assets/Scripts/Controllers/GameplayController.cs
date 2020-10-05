@@ -60,6 +60,10 @@ public class GameplayController : MonoBehaviour
 
         if (currentStep != CurrentStep.stepsCompletados)
             ActivateCurrentStateObjs();
+
+        if (currentStep == CurrentStep.bichitos)
+            SoundManager.Get().PlaySound(SoundManager.Sounds.FliesLoop);
+
         SoundManager.Get().AddNewInstrument();
     }
 

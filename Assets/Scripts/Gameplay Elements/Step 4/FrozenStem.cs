@@ -17,6 +17,7 @@ public class FrozenStem : MonoBehaviour
         GameplayController.clickableObjects.Add(clickable);
         clickable.StartCorrectState();
         GetComponent<StepObject>().Appear();
+        SoundManager.Get().PlaySound(SoundManager.Sounds.PlantFreeze);
     }
 
     void OnMouseOver()
@@ -27,6 +28,8 @@ public class FrozenStem : MonoBehaviour
         {
             GameplayController.clickableObjects.Remove(clickable);
             gameObject.SetActive(false);
+            SoundManager.Get().PlaySound(SoundManager.Sounds.FreezeOut);
+
             OnIceBroken?.Invoke();
         }
     }
