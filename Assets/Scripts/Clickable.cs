@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Clickable : MonoBehaviour
 {
@@ -45,12 +44,16 @@ public class Clickable : MonoBehaviour
 
     public void StartCorrectState()
     {
+        if (!sr) sr = GetComponent<SpriteRenderer>();
+
         sr.color = Color.white;
         interactable = true;
     }
 
     public void EndCorrectState()
     {
+        if (!sr) sr = GetComponent<SpriteRenderer>();
+
         outLine.SetActive(false);
         sr.color = grayTone; //no funcionaria con los que tengan cambiados los tonos desde antes en vez de estar en blanco
         interactable = false;

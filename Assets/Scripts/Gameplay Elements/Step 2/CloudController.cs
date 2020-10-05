@@ -47,7 +47,11 @@ public class CloudController : MonoBehaviour
                     ScaleShadow(shadowShrinkFactor);
                     timesShrunk++;
                 }
-                else OnStepsCompleted?.Invoke();
+                else
+                {
+                    onStep3 = false;
+                    OnStepsCompleted?.Invoke();
+                }
             }
         }
     }

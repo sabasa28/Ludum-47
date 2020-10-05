@@ -42,6 +42,12 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Plant
+    uniqueID: 3891199499
+    locked: 0
+  - name: Frozen Plant
+    uniqueID: 3158528431
+    locked: 0
   - name: Interaction
     uniqueID: 3341919567
     locked: 0

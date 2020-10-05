@@ -3,15 +3,12 @@ using UnityEngine;
 
 public class StepObject : MonoBehaviour
 {
-    bool hasSR;
+    bool hasSR = false;
 
     SpriteRenderer sr;
     float timeToFadeIn = 1.0f;
     float timeToFadeOut = 1.0f;
-    void Awake()
-    {
-        hasSR = TryGetComponent(out sr);
-    }
+
     public void Deactivate()
     {
         if (gameObject.activeInHierarchy)
@@ -19,7 +16,7 @@ public class StepObject : MonoBehaviour
     }
     public void Appear()
     {
-        StartCoroutine(FadeIn());
+        if (TryGetComponent(out sr)) StartCoroutine(FadeIn());
     }
     IEnumerator FadeAndDeactivate()
     {
@@ -40,8 +37,6 @@ public class StepObject : MonoBehaviour
     }
     IEnumerator FadeIn()
     {
-        if (!hasSR) yield break;
-
         float t = 0;
         Color visibleCol = new Color(sr.color.r, sr.color.g, sr.color.b, 1);
         Color notVisibleCol = new Color(sr.color.r, sr.color.g, sr.color.b, 0);

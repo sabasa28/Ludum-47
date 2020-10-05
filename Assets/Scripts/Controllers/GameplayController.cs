@@ -36,6 +36,7 @@ public class GameplayController : MonoBehaviour
         smController.OnStateChange = OnDayStart;
         stepSemillaCompleter.Reaction = OnStepDone;
         CloudController.OnStepsCompleted = OnStepDone;
+        FrozenPlant.OnIceBroken = OnStepDone;
         clickableObjects = FindObjectsOfType<Clickable>().ToList();
     }
 
@@ -50,7 +51,7 @@ public class GameplayController : MonoBehaviour
         StartCoroutine(ChangeStep());   
     }
 
-    IEnumerator ChangeStep()
+    IEnumerator ChangeStep() //la corrutina se esta llamando mas veces de las que deberia al terminar el paso 3, aunque pasa solo a veces y la cantidad de veces que se llama varia
     {
         if (currentStep != CurrentStep.stepsCompletados)
         {
@@ -88,7 +89,7 @@ public class GameplayController : MonoBehaviour
     }
 
     void ActivateCurrentStateObjs()
-    { 
+    {
         for (int i = 0; i < stepsObjects[(int)currentStep].Length; i++)
         {
             stepsObjects[(int)currentStep][i].gameObject.SetActive(true);

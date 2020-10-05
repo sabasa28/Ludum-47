@@ -1,10 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class CloudShadow : MonoBehaviour
 {
-    [SerializeField] Transform pivot;
+    [SerializeField] Transform pivot = null;
     [SerializeField] SpriteRenderer shadow = null;
     [SerializeField] SpriteRenderer sunBeam = null;
     [SerializeField] AnimationCurve alfaRegulator = null;
@@ -19,9 +17,7 @@ public class CloudShadow : MonoBehaviour
         Vector3 to = transform.position;
         transform.up = from-to;
         float newAlfa = sunBeam.color.a;
-        Debug.Log(sunBeam.color.a);
         newAlfa = alfaRegulator.Evaluate(newAlfa);
         shadow.color = new Color(shadow.color.r, shadow.color.g, shadow.color.b, newAlfa);
-        Debug.Log(shadow.color.a);
     }
 }
