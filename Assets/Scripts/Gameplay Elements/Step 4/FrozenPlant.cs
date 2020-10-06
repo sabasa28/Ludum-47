@@ -6,7 +6,7 @@ public class FrozenPlant : MonoBehaviour
     [SerializeField] int iceBreakTarget = 0;
     int timesIceBroken = 0;
 
-    static public Action OnIceBroken;
+    public static Action OnIceBroken;
 
     void OnEnable()
     {

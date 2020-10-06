@@ -49,8 +49,17 @@ TagManager:
   - name: Beams
     uniqueID: 3832978111
     locked: 0
-  - name: Planets
-    uniqueID: 924838677
+  - name: Below Planet
+    uniqueID: 3550592483
+    locked: 0
+  - name: Above Planet
+    uniqueID: 2270104471
+    locked: 0
+  - name: Mandala Planet
+    uniqueID: 910127181
+    locked: 0
+  - name: Soil
+    uniqueID: 2007569945
     locked: 0
   - name: Island
     uniqueID: 2447725271
@@ -72,15 +81,6 @@ TagManager:
     locked: 0
   - name: Draggable
     uniqueID: 2566262795
-    locked: 0
-  - name: Below Planet
-    uniqueID: 3550592483
-    locked: 0
-  - name: Above Planet
-    uniqueID: 2270104471
-    locked: 0
-  - name: Mandala Planet
-    uniqueID: 910127181
     locked: 0
   - name: Cover
     uniqueID: 933117823

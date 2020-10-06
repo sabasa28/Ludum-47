@@ -19,9 +19,11 @@ public class SunMoonController : MonoBehaviour
     [SerializeField] Image dayBG = null;
     [SerializeField] Transform moon = null;
     [SerializeField] Transform sun = null;
-    [SerializeField] Transform mandalaPlanet = null;
-    [SerializeField] SpriteRenderer mandalaPlanetSR = null;
-    [SerializeField] Image mandala= null;
+    [SerializeField] Transform mandalaPlanet1 = null;
+    [SerializeField] SpriteRenderer mandalaPlanet1SR = null;
+    [SerializeField] Transform mandalaPlanet2 = null;
+    [SerializeField] SpriteRenderer mandalaPlanet2SR = null;
+    [SerializeField] Image mandala = null;
     [SerializeField] float rotSpeed = 0;
     public Action <bool> OnStateChange;
 
@@ -49,9 +51,10 @@ public class SunMoonController : MonoBehaviour
 
     public void StartFinalAnimation()
     {
-        mandalaPlanet.position = sun.position;
+        mandalaPlanet1.position = sun.position;
+        mandalaPlanet2.position = moon.position;
 
-        StartCoroutine(FinalAnimation(mandalaPlanetSR, mandala));
+        StartCoroutine(FinalAnimation(mandalaPlanet1SR, mandalaPlanet2SR, mandala));
     }
 
     IEnumerator Rotate()
@@ -89,23 +92,28 @@ public class SunMoonController : MonoBehaviour
         }
     }
 
-    IEnumerator FinalAnimation(SpriteRenderer planetSR, Image mandala)
+    IEnumerator FinalAnimation(SpriteRenderer planet1SR, SpriteRenderer planet2SR, Image mandala)
     {
         float t = 0;
-        Color visibleCol = new Color(planetSR.color.r, planetSR.color.g, planetSR.color.b, 1);
-        Color notVisibleCol = new Color(planetSR.color.r, planetSR.color.g, planetSR.color.b, 0);
+        Color visibleCol1 = new Color(planet1SR.color.r, planet1SR.color.g, planet1SR.color.b, 1);
+        Color notVisibleCol1 = new Color(planet1SR.color.r, planet1SR.color.g, planet1SR.color.b, 0);
+
+        Color visibleCol2 = new Color(planet2SR.color.r, planet2SR.color.g, planet2SR.color.b, 1);
+        Color notVisibleCol2 = new Color(planet2SR.color.r, planet2SR.color.g, planet2SR.color.b, 0);
+
         while (t < 1)
         {
             t += Time.deltaTime / fadeDuration;
-            planetSR.color = Color.Lerp(notVisibleCol, visibleCol, t);
+            planet1SR.color = Color.Lerp(notVisibleCol1, visibleCol1, t);
+            planet2SR.color = Color.Lerp(notVisibleCol2, visibleCol2, t);
             yield return null;
         }
 
         yield return new WaitForSeconds(2f);
 
         t = 0;
-        visibleCol = new Color(mandala.color.r, mandala.color.g, mandala.color.b, 1);
-        notVisibleCol = new Color(mandala.color.r, mandala.color.g, mandala.color.b, 0);
+        Color visibleCol = new Color(mandala.color.r, mandala.color.g, mandala.color.b, 1);
+        Color notVisibleCol = new Color(mandala.color.r, mandala.color.g, mandala.color.b, 0);
         while (t < 1)
         {
             t += Time.deltaTime / fadeDuration;

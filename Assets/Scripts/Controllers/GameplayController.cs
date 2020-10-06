@@ -37,6 +37,7 @@ public class GameplayController : MonoBehaviour
         stepSemillaCompleter.Reaction = OnStepDone;
         CloudController.OnStepsCompleted = OnStepDone;
         FrozenPlant.OnIceBroken = OnStepDone;
+        FlyManager.OnFliesShooed = OnStepDone;
         clickableObjects = FindObjectsOfType<Clickable>().ToList();
     }
 
